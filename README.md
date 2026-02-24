@@ -1,5 +1,7 @@
 # MRtrix
 
+This fork of MRtrix3 is meant to be compatible with C++17 and above where there are clashes with MRtrix3's apply function (in core/apply.h) and the apply function in the new C++ standard library.
+
 [![Build Status](https://github.com/MRtrix3/mrtrix3/workflows/checks/badge.svg)](https://github.com/MRtrix3/mrtrix3/actions)
 [![@MRtrix3](http://img.shields.io/twitter/follow/MRtrix3.svg?style=social)](https://twitter.com/MRtrix3)
 
