@@ -28,9 +28,9 @@ namespace MR {
     template<size_t N>
       struct Apply { NOMEMALIGN
         template<typename F, typename T>
-          static FORCE_INLINE void apply (F && f, T && t)
+          static FORCE_INLINE void do_apply (F && f, T && t)
           {
-            Apply<N-1>::apply (::std::forward<F>(f), ::std::forward<T>(t));
+            Apply<N-1>::do_apply (::std::forward<F>(f), ::std::forward<T>(t));
             ::std::forward<F>(f) (::std::get<N> (::std::forward<T>(t)));
           }
       };
@@ -38,7 +38,7 @@ namespace MR {
     template<>
       struct Apply<0> { NOMEMALIGN
         template<typename F, typename T>
-          static FORCE_INLINE void apply (F && f, T && t)
+          static FORCE_INLINE void do_apply (F && f, T && t)
           {
             ::std::forward<F>(f) (::std::get<0> (::std::forward<T>(t)));
           }
@@ -79,11 +79,11 @@ namespace MR {
 
   //! invoke \c f(x) for each entry in \c t
   template <class F, class T>
-    FORCE_INLINE void apply (F && f, T && t) 
+    FORCE_INLINE void do_apply (F && f, T && t) 
     {
       Apply< ::std::tuple_size<
         typename ::std::decay<T>::type
-        >::value-1>::apply (::std::forward<F>(f), ::std::forward<T>(t));
+        >::value-1>::do_apply (::std::forward<F>(f), ::std::forward<T>(t));
     }
 
   //! if \c t is a tuple of elements \c a..., invoke \c f(a...)
