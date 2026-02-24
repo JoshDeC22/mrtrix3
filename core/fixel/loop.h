@@ -51,10 +51,10 @@ namespace MR
         const std::tuple<DataType&...> data;
         FORCE_INLINE Run (const index_type num_fixels, const index_type offset, const std::tuple<DataType&...>& data) :
           num_fixels (num_fixels), offset (offset), fixel_index (0), data (data) {
-          apply (set_offset (offset), data);
+          do_apply (set_offset (offset), data);
         }
         FORCE_INLINE operator bool() const { return fixel_index < num_fixels; }
-        FORCE_INLINE void operator++() { apply (inc_fixel (), data); fixel_index++; }
+        FORCE_INLINE void operator++() { do_apply (inc_fixel (), data); fixel_index++; }
         FORCE_INLINE void operator++(int) const { operator++(); }
       };
 
